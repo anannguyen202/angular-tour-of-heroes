@@ -34,7 +34,10 @@ export class HeroDetailComponent implements OnInit {
   }
 
   save():void {
-    this.heroService.uploadHero(this.hero);
+    this.heroService.uploadHero(this.hero)
+    .subscribe(() => {
+      this.goBack();
+    });
   }
 
 }

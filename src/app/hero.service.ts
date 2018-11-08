@@ -27,14 +27,26 @@ export class HeroService {
   }
 
   getHero(id: number): Observable<Hero> {
+    this.log('Get hero');
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get<Hero>(url);
   }
 
+  addHero(hero: Hero): Observable<Hero> {
+    this.log('Add hero');
+    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions);
+  }
 
   uploadHero(hero: Hero): Observable<any> {
-    this.log('Update heroes');
-    return this.http.put(this.heroesUrl, hero,httpOptions);
+    this.log('Update hero');
+    return this.http.put(this.heroesUrl, hero, httpOptions);
+  }
+
+  deleteHero(hero: Hero | number): Observable<Hero> {
+    this.log('Delete hero');
+    const id = (typeof hero === 'number') ? hero : hero.id;
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete<Hero>(url, httpOptions);
   }
 
   log(message: string): void {
