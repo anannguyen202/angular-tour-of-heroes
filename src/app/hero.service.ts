@@ -21,6 +21,14 @@ export class HeroService {
     private messageService: MessageService
   ) { }
 
+  searchHeroes(term: string): Observable<Hero[]>  {
+    if(!term.trim()) {
+      return of([]);
+    }
+    const url = `${this.heroesUrl}/?name=${term}`;
+    return this.http.get<Hero[]>(url);
+  }
+
   getHeroes(): Observable<Hero[]> {
     this.log('fetched heroes');
     return this.http.get<Hero[]>(this.heroesUrl);
